@@ -1,19 +1,13 @@
-# setup-admin
+# object-valid
 
-## Project setup
-```
-npm install
-```
+### what
+----
+一个自定义校验规则的对象(object)校验工具
+### why
+----
+其实就是这周做了个超级多字段的表单，然后还有很多条特殊规则的校验
+也想不到啥很好的方法，然后今下午有了点时间，写了个....插件，小工具吧...
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### How
+----
+em....偷个懒，完善的差不多了再写这里，然后再写个使用的demo
