@@ -27,11 +27,15 @@ class valid {
     if (this._isRightRule(obj)) {
       this.rules.push(obj)
     } else {
-      console.warn('rule must be an Object with [name] & [func],and [func] must be a Function')
+      console.warn('rule must be an Object with [field] & [func],and [func] must be a Function')
     }
   }
 
-  judgeFunc(all) {
+  _judgeValue(val,_func) {
+    
+  }
+
+  judgeFunc(isfindall) {
     let bol = true
     let errmsg = []
     for (let i = 0; i < this.rules.length; i++) {
@@ -44,7 +48,7 @@ class valid {
       if (!r) {
         bol = false
         errmsg.push(rule.emsg ? rule.emsg : `${rule.field} is not valid`)
-        if (!all) {
+        if (!isfindall) {
           return {
             isValid: bol,
             errmsg: errmsg[0]
@@ -58,7 +62,7 @@ class valid {
     }
   }
 
-  isvalid(all) {
-    return this.judgeFunc(all)
+  isvalid(isfindall) {
+    return this.judgeFunc(isfindall)
   }
 }

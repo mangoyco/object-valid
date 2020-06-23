@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script src="./valid.js"></script>
+  <script>
+    var obj = {
+      name: '',
+      age: 12,
+      num: 10,
+    }
+    var fm = Object.freeze(new valid(obj))
+    fm.addRule({
+      field: 'name',
+      func(e) {
+        if (!e) {
+          return false
+        }
+        return true
+      }
+    })
+    fm.addRule({
+      field: 'age',
+      func(e) {
+        // console.log(e, this)
+        if (e > this.num) {
+          return false
+        }
+        return true
+      },
+      emsg: 'age错误'
+    })
+    console.log(fm.isvalid())
+    console.log(fm.isvalid('all'))
+  </script>
+</body>
+
+</html>
