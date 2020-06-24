@@ -9,36 +9,67 @@
 
 <body>
 
+  <form method="post">
+    <div>
+      <label for="name">用户名：</label>
+      <input type="text" id="name" name="user_name" />
+    </div>
+    <div>
+      <label for="passwd">密码：</label>
+      <input type="password" id="passwd" name="user_passwd" />
+    </div>
+    <div>
+      <label for="passwd">年龄：</label>
+      <input type="number" id="age" name="user_age" />
+    </div>
+  </form>
+  <button onclick="getR()">obj</button>
+
   <script src="./valid.js"></script>
   <script>
     var obj = {
       name: '',
-      age: 12,
+      passwd: '',
+      age: null,
       num: 10,
     }
-    var fm = Object.freeze(new valid(obj))
+
+    Array.from(document.querySelectorAll('input')).forEach(inp => {
+      inp.addEventListener('input', (e) => {
+        obj[e.target.id] = e.target.value
+      })
+    })
+    var fm = new valid(obj)
+
     fm.addRule({
-      field: 'name',
+      field: ['name', 'passwd'],
       func(e) {
         if (!e) {
           return false
         }
         return true
-      }
+      },
+      emsg:'lueluelue'
     })
+
     fm.addRule({
       field: 'age',
       func(e) {
         // console.log(e, this)
-        if (e > this.num) {
+        if (!e || (e > this.num)) {
           return false
         }
         return true
       },
       emsg: 'age错误'
     })
-    console.log(fm.isvalid())
-    console.log(fm.isvalid('all'))
+
+    function getR() {
+
+
+      console.log(fm.isvalid())
+      console.log(fm.isvalid('all'))
+    }
   </script>
 </body>
 

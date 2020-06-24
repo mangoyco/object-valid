@@ -31,23 +31,40 @@ class valid {
     }
   }
 
-  _judgeValue(val,_func) {
-    
+  _hasProp(field) {
+    return this.formObj.hasOwnProperty(field)
+  }
+
+  _judgeValue(field, func) {
+
+    let _func = func.bind(this.formObj)
+
+    if (Array.isArray(field)) {
+
+      for (let i = 0; i < field.length; i++) {
+        let p = field[i]
+        if (!_func(this.formObj[p])) {
+          return false
+        }
+      }
+      return true
+
+    } else {
+      return this._hasProp(field) ? _func(this.formObj[field]) : (console.warn('useless rule of ' + field) || false)
+    }
   }
 
   judgeFunc(isfindall) {
     let bol = true
     let errmsg = []
     for (let i = 0; i < this.rules.length; i++) {
+
       let rule = this.rules[i]
-      let F = rule.func
-      if (!typeof F === 'function') {
-        throw new Error(`func Property Needs a Function Not a ${typeof F}`)
-      }
-      let r = F.call(this.formObj, this.formObj[rule.field])
+      let r = this._judgeValue(rule.field, rule.func)
+
       if (!r) {
         bol = false
-        errmsg.push(rule.emsg ? rule.emsg : `${rule.field} is not valid`)
+        errmsg.push(rule.emsg ? rule.emsg : `${Array.isArray(rule.field) ? JSON.stringify(rule.field) : rule.field} is not valid`)
         if (!isfindall) {
           return {
             isValid: bol,
