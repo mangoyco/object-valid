@@ -31,34 +31,34 @@
 ```javascript
 //举例对象
 var obj = {
-      name: '',
-      passwd: '',
-      age: null,
-      num: 10,
-    }
+  name: '',
+  passwd: '',
+  age: null,
+  num: 10,
+}
 //1.创建valid实例
 var fm = new valid(obj)
 //2.添加规则
 fm.addRule({
-	field: 'age', //需要校验的属性名
-    func(e) {	//自定义校验方法，e为改规则所校验的属性值，返回一个布尔值
-	  if (!e || (e > this.num)) {  //该方法中的this指向校验的对象，即obj
-	  	return false
-	  }
-	  return true
-  	},
-  	emsg: 'age错误' //未通过校验的错误信息，可不传
+  field: 'age', //需要校验的属性名
+  func(e) {	//自定义校验方法，e为改规则所校验的属性值，返回一个布尔值
+  if (!e || (e > this.num)) {  //该方法中的this指向校验的对象，即obj
+    return false
+  }
+  return true
+  },
+  emsg: 'age错误' //未通过校验的错误信息，可不传
 })
 
 //多个值使用同一规则，field字段可为数组
 fm.addRule({
-      field: ['name','passwd'], //
-      func(e) {//该值不为空校验
-        if (!e) {
-          return false
-        }
-        return true
-      }
+  field: ['name','passwd'], //
+  func(e) {//该值不为空校验
+    if (!e) {
+      return false
+    }
+    return true
+  }
 })
 
 //获取校验结果
