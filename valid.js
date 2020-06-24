@@ -47,6 +47,7 @@ class valid {
           return false
         }
       }
+
       return true
 
     } else {
